@@ -4,16 +4,19 @@ from email.message import EmailMessage
 import os.path
 import mimetypes
 import smtplib
-import reports
-import getpass
-
-sender = 'automation@example.com'
-recipient = 'student-02-e77b4fa32e09@example.com'
-subject = 'Upload Completed - Online Fruit Store'
-body = 'All fruits are uploaded to our website successfully. A detailed list is attached to this email.'
 
 
-def generate_email(sender=sender, recipient=recipient, subject=subject, body=body, has_attachment=True):
+def generate_email(sender, recipient, subject, body, has_attachment=True):
+	"""Creates an email message with the sender, recipient, subject, body, and possible attachment.
+
+	:param str sender:
+	:param str recipient:
+	:param str subject:
+	:param str body:
+	:param bool has_attachment:
+	:return: email.message.EmailMessage: A string representation of the email
+	"""
+
 	message = EmailMessage()
 	message['From'] = sender
 	message['To'] = recipient
@@ -37,10 +40,21 @@ def generate_email(sender=sender, recipient=recipient, subject=subject, body=bod
 
 
 def send_email(message):
+	"""Sends the EmailMessage provided through the localhost mail server.
+
+	:param email.message.EmailMessage message: Formatted contents of email
+	:return: None
+	"""
 	mail_server = smtplib.SMTP('localhost')
 	mail_server.send_message(message)
+	return
 
 
 if __name__ == "__main__":
-	message = generate_email()
+	sender = 'automation@example.com'
+	recipient = 'student-02-e77b4fa32e09@example.com'
+	subject = 'Upload Completed - Online Fruit Store'
+	body = 'All fruits are uploaded to our website successfully. A detailed list is attached to this email.'
+
+	message = generate_email(sender, recipient, subject, body)
 	send_email(message)

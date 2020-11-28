@@ -10,6 +10,10 @@ import emails
 
 
 def cpu_util():
+	"""Checks if CPU use is under 80%. Returns True for pass.
+
+	:return: bool
+	"""
 	cpu_usage = psutil.cpu_percent(interval=0.1)
 	if cpu_usage > 80:
 		return False
@@ -18,6 +22,10 @@ def cpu_util():
 
 
 def avail_disk():
+	"""Checks if the disk has at least 20% space left. Returns True for pass.
+
+	:return: bool
+	"""
 	disk_remaining = psutil.disk_usage('/')
 	if disk_remaining.percent < 20:
 		return False
@@ -26,6 +34,10 @@ def avail_disk():
 
 
 def mem_remaining():
+	"""Checks if at least 500MB of memory is available. Returns True for pass.
+
+	:return: bool
+	"""
 	mem = psutil.virtual_memory()
 	mem_threshold = 500 * 1024 * 1024
 	if mem.available < mem_threshold:
@@ -35,6 +47,10 @@ def mem_remaining():
 
 
 def ip_check():
+	"""Checks to see if the localhost IP address is 127.0.0.1. Returns True for pass.
+
+	:return: bool
+	"""
 	localhost_ip = socket.gethostbyname(socket.gethostname())
 	if localhost_ip != '127.0.0.1':
 		return False
